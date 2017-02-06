@@ -12,7 +12,7 @@
    updateData();
    setInterval(function(){
     updateData();
-  }, 1000);
+  }, 200);
 
  });
 

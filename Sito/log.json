@@ -1,31 +1,5 @@
 [
 		{"time": "11:30", "alarm":false},
-		{"time": "11:35", "alarm":false},
-		{"time": "11:39", "alarm":false},
-		{"time": "11:37", "alarm":true},
-		{"time": "11:37", "alarm":false},
-		{"time": "11:37", "alarm":true},
-		{"time": "11:37", "alarm":false},
-		{"time": "11:30", "alarm":true},
-		{"time": "11:35", "alarm":false},
-		{"time": "11:39", "alarm":false},
-		{"time": "11:37", "alarm":true},
-		{"time": "11:37", "alarm":false},
-		{"time": "11:37", "alarm":true},
-		{"time": "11:37", "alarm":false},
-		{"time": "11:30", "alarm":false},
-		{"time": "11:35", "alarm":true},
-		{"time": "11:39", "alarm":false},
-		{"time": "11:37", "alarm":true},
-		{"time": "11:37", "alarm":false},
-		{"time": "11:37", "alarm":true},
-		{"time": "11:37", "alarm":false},
-		{"time": "11:30", "alarm":true},
-		{"time": "11:35", "alarm":false},
-		{"time": "11:39", "alarm":false},
-		{"time": "11:37", "alarm":true},
-		{"time": "11:37", "alarm":false},
-		{"time": "11:37", "alarm":true},
-		{"time": "11:37", "alarm":false},
-		{"time": "11:40", "alarm":false}
+		{"time": "11:35", "alarm":true}
+
 ]

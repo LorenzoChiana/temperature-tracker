@@ -1,9 +1,8 @@
 [
 	{"time":"2012", "value":10},
-	{"time":"2013", "value":12},
-	{"time":"2014", "value":14},
-	{"time":"2017", "value":90},
-	{"time":"2027", "value":100},
-	{"time":"2037", "value":50},
-	{"time":"2015", "value":16}
+	{"time":"2013", "value":25},
+	{"time":"2014", "value":36},
+	{"time":"2015", "value":36},
+	{"time":"2016", "value":36},
+	{"time":"2020", "value":20}
 ]
