@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: whitesmoke;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    margin-top: 25px;
+}
+
+h2 {
+    font-size: 1.55em;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#title-row {
+    background-color: #3498db;
+    height: 100px;
+}
+
+.panel-heading {
+    color: white !important;
+    background-color: #3498db !important;
+    height: 60px;
+}
+
+#log-body.panel-body::-webkit-scrollbar { 
+    display: none; 
+}
+
+#log-body.panel-body {
+    padding: 0px;
+    max-height: 300px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.list-group-item {
+    height: 50px;
+}
+
+.info-time {
+    float: left;
+}
+
+.info-message {
+    float: right;
+}
+
+.morris-hover {
+    position: absolute;
+    z-index: 1000
+}
+.morris-hover.morris-default-style {
+    border-radius: 10px;
+    padding: 6px;
+    color: #666;
+    background: rgba(255, 255, 255, 0.8);
+    border: solid 2px rgba(230, 230, 230, 0.8);
+    font-family: sans-serif;
+    font-size: 12px;
+    text-align: center
+}
+.morris-hover.morris-default-style .morris-hover-row-label {
+    font-weight: bold;
+    margin: 0.25em 0
+}
+.morris-hover.morris-default-style .morris-hover-point {
+    white-space: nowrap;
+    margin: 0.1em 0
+}
