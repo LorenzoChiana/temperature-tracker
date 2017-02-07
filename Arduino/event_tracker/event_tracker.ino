@@ -9,6 +9,8 @@
 #include "MsgServiceBluetooth.h"
 #include "MsgServiceSerial.h"
 #include "TemperatureSensor.h"
+#include "DetectPresenceTask.h"
+#include "TemperatureTask.h"
 
 
 
