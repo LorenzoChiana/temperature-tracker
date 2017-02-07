@@ -51,7 +51,7 @@ void setup() {
 
   sched.init(CLOCK);
 
-  Task* detectPresenceTask = new DetectPresenceTask(env, pir);
+  Task* detectPresenceTask = new DetectPresenceTask(env, pir, servo);
   detectPresenceTask->init(3*CLOCK);
   sched.addTask(detectPresenceTask);
   
