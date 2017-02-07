@@ -20,6 +20,8 @@
 
 #define CLOCK 100
 
+#define P 1000
+
 #include "Environment.h"
 
 #endif

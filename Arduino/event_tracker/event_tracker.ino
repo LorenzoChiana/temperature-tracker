@@ -47,15 +47,18 @@ void setup() {
 
   //Oggetto della classe che contiente il canale di comunicazioni e le variabili globali
   Environment* env = new Environment();
-  env->init(RX_PIN_B, TX_PIN_B);
+  env->init(serialChannel, bluetoothChannel);
 
   sched.init(CLOCK);
 
-  /*
-  Task* nomeTask = new ControllerTask(env);
-  nomeTask->init(3*CLOCK);
-  sched.addTask(nomeTask);
-  */
+  Task* detectPresenceTask = new DetectPresenceTask(env, pir);
+  detectPresenceTask->init(3*CLOCK);
+  sched.addTask(detectPresenceTask);
+  
+  Task* temperatureTask = new TemperatureTask(env, thermostat);
+  temperatureTask->init(3*CLOCK);
+  sched.addTask(temperatureTask);
+
 }
 
 void loop() {
