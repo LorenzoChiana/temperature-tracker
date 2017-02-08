@@ -20,6 +20,8 @@
 
     $.getJSON('temperature.json', function(json) {
       graph.setData(json);
+      lastTemp = json[json.length-1].value;
+      $('#title-row h1').text("Temperatura attuale: "+ lastTemp);
     });
 
     $.getJSON('log.json', function(json) {

@@ -10,17 +10,19 @@ DetectPresenceTask::DetectPresenceTask(Environment* env, PIRSensor* pir, ServoTi
 void DetectPresenceTask::init(int period){
   Task::init(period);
   this->toggle = true;
+  prevState = currState = false;
   state = NO_ONE;
-
-
 }
 
 void DetectPresenceTask::tick(){
+ Serial.println(pir->detected());
   switch (state){
     case NO_ONE:
-    if (pir->detected()){
+    prevState = currState;
+    currState = pir->detected();
+    if (currState && prevState == false){
         //Manda un messaggio nel canale Bluetooth al telefono
-      MsgBluetooth presenceMsg = MsgBluetooth(String("Ei, ciè qulcn"));
+      MsgBluetooth presenceMsg = MsgBluetooth(String(PRESENCE_MSG));
       env->getBluetooth()->sendMsg(presenceMsg);
         //Avvia un timer e va in attesa della risposta
       currentTime = initialTime = millis(); 
@@ -32,15 +34,18 @@ void DetectPresenceTask::tick(){
     bool response = env->getBluetooth()->isMsgAvailable();
     if (response){
       String responseMsg = env->getBluetooth()->receiveMsg()->getContent();
-      if (responseMsg == "Allarme"){
+      if (responseMsg == ALARM_RESPONSE){
         sendAlarm();
-        actuateServo(toggle);
+        actuateServo(&toggle);
+        state = NO_ONE;
       } else {
         sendPresence();
+        state = NO_ONE;
       }
     } else if (currentTime - initialTime > 10000){
       sendAlarm();
-      actuateServo(toggle);
+      actuateServo(&toggle);
+      state = NO_ONE;
     } else {
       currentTime = millis();
     }
@@ -49,14 +54,14 @@ void DetectPresenceTask::tick(){
 }
 
 void DetectPresenceTask::sendAlarm(){
-  env->getBluetooth()->sendMsg(MsgBluetooth(String("Allarme")));
+  env->getSerial()->sendMsg(MsgSerial(String("Allarme")));
 }
 
 void DetectPresenceTask::sendPresence(){
-  env->getBluetooth()->sendMsg(MsgBluetooth(String("Presenza")));
+  env->getSerial()->sendMsg(MsgSerial(String("Presenza rilevata")));
 }
 
-void DetectPresenceTask::actuateServo(bool toggle){
-  servo->write(toggle ? 2200 : 500);
-  toggle = !toggle;
+void DetectPresenceTask::actuateServo(bool* toggle){
+  servo->write(*toggle ? 2200 : 500);
+  *toggle = !(*toggle);
 }

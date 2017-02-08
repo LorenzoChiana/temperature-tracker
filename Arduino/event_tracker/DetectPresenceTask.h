@@ -17,12 +17,13 @@ public:
 private:
 	void sendAlarm();
 	void sendPresence();
-	void actuateServo(bool toggle);
+	void actuateServo(bool* toggle);
 	bool toggle;
 	PIRSensor* pir;
 	Environment* env;
 	ServoTimer2* servo;
 	long currentTime, initialTime;
+	bool prevState, currState;
 	enum { NO_ONE, WAITING } state;
 
 };
