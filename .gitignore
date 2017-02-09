@@ -1,2 +1,17 @@
-# Add any directories, files, or patterns you don't want to be tracked by version control
-desktop.ini
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
