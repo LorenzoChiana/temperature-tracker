@@ -11,11 +11,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.loren.eventtracker.R;
 import com.example.loren.eventtracker.tools.bt.BluetoothConnectionTask;
 import com.example.loren.eventtracker.tools.bt.BluetoothUtils;
+import com.example.loren.eventtracker.tools.services.MessageService;
 import com.example.loren.eventtracker.utils.C;
 
 import org.json.JSONObject;
@@ -59,6 +61,33 @@ public class MainActivity extends Activity {
         } else {
             showBluetoothUnavailableAlert();
         }
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        startService();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stopService();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService();
+    }
+
+
+    public void startService() {
+        startService(new Intent(this, MessageService.class));
+    }
+
+    public void stopService() {
+        stopService(new Intent(this, MessageService.class));
     }
 
     private void connectToTargetBtDevice() {

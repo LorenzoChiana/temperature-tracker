@@ -3,7 +3,6 @@ package com.example.loren.eventtracker.tools.bt;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.AsyncTask;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.loren.eventtracker.activities.MainActivity;
