@@ -15,14 +15,13 @@ void DetectPresenceTask::init(int period){
 }
 
 void DetectPresenceTask::tick(){
- Serial.println(pir->detected());
   switch (state){
     case NO_ONE:
     prevState = currState;
     currState = pir->detected();
     if (currState && prevState == false){
         //Manda un messaggio nel canale Bluetooth al telefono
-      MsgBluetooth presenceMsg = MsgBluetooth(String(PRESENCE_MSG));
+      MsgBluetooth presenceMsg = MsgBluetooth(String(BLUETOOTH_PRESENCE_MSG));
       env->getBluetooth()->sendMsg(presenceMsg);
         //Avvia un timer e va in attesa della risposta
       currentTime = initialTime = millis(); 
@@ -34,7 +33,7 @@ void DetectPresenceTask::tick(){
     bool response = env->getBluetooth()->isMsgAvailable();
     if (response){
       String responseMsg = env->getBluetooth()->receiveMsg()->getContent();
-      if (responseMsg == ALARM_RESPONSE){
+      if (responseMsg == BLUETOOTH_ALARM_RESPONSE){
         sendAlarm();
         actuateServo(&toggle);
         state = NO_ONE;
@@ -54,11 +53,11 @@ void DetectPresenceTask::tick(){
 }
 
 void DetectPresenceTask::sendAlarm(){
-  env->getSerial()->sendMsg(MsgSerial(String("Allarme")));
+  env->getSerial()->sendMsg(MsgSerial(SERIAL_ALARM_MSG));
 }
 
 void DetectPresenceTask::sendPresence(){
-  env->getSerial()->sendMsg(MsgSerial(String("Presenza rilevata")));
+  env->getSerial()->sendMsg(MsgSerial(SERIAL_PRESENCE_MSG));
 }
 
 void DetectPresenceTask::actuateServo(bool* toggle){

@@ -22,8 +22,13 @@
 
 #define P 5000
 
-#define PRESENCE_MSG "presence detected"
-#define ALARM_RESPONSE "true"
+//Comunicazione Bluetooth
+#define BLUETOOTH_PRESENCE_MSG "presence detected"
+#define BLUETOOTH_ALARM_RESPONSE "true"
+//Comunicazione Seriale
+#define SERIAL_ALARM_MSG "alarm detected"
+#define SERIAL_PRESENCE_MSG "presence detected"
+#define SERIAL_CONNECTION_MSG "connection"
 
 #include "Environment.h"
 

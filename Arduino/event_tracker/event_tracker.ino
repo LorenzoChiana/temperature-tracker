@@ -11,8 +11,7 @@
 #include "TemperatureSensor.h"
 #include "DetectPresenceTask.h"
 #include "TemperatureTask.h"
-
-
+#include "ControllerTask.h"
 
 /*
  * Matteo Minardi
@@ -58,6 +57,10 @@ void setup() {
   Task* temperatureTask = new TemperatureTask(env, thermostat);
   temperatureTask->init(3*CLOCK);
   sched.addTask(temperatureTask);
+
+  Task* controllerTask = new ControllerTask(env);
+  controllerTask->init(3*CLOCK);
+  sched.addTask(controllerTask);
 
 }
 
