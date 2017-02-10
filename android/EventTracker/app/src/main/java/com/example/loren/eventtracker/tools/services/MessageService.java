@@ -14,7 +14,6 @@ public class MessageService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.d("Service", "partito");
         while(true){
-
         }
     }
 

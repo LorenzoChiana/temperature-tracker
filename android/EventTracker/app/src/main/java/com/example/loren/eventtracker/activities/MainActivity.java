@@ -2,6 +2,7 @@ package com.example.loren.eventtracker.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
@@ -11,7 +12,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.loren.eventtracker.R;
@@ -19,15 +19,14 @@ import com.example.loren.eventtracker.tools.bt.BluetoothConnectionTask;
 import com.example.loren.eventtracker.tools.bt.BluetoothUtils;
 import com.example.loren.eventtracker.tools.services.MessageService;
 import com.example.loren.eventtracker.utils.C;
+import com.example.loren.eventtracker.tools.dialog.AlarmDialogFragment;
 
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.util.UUID;
 
 public class MainActivity extends Activity {
 
-    private static final int ACCESS_FINE_LOCATION_REQUEST = 1234;
     private BluetoothAdapter btAdapter;
     private BluetoothDevice targetDevice;
     private static MainActivityHandler uiHandler;
@@ -38,7 +37,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
-        uiHandler = new MainActivityHandler(new WeakReference<>(this));
+        uiHandler = new MainActivityHandler();
     }
 
     @Override
@@ -61,6 +60,7 @@ public class MainActivity extends Activity {
         } else {
             showBluetoothUnavailableAlert();
         }
+
     }
 
     @Override
@@ -118,10 +118,9 @@ public class MainActivity extends Activity {
     }
 
     public class MainActivityHandler extends Handler {
-        private final WeakReference<MainActivity> context;
 
-        MainActivityHandler(WeakReference<MainActivity> context) {
-            this.context = context;
+        MainActivityHandler() {
+
         }
 
         public void handleMessage(Message msg) {
@@ -135,11 +134,8 @@ public class MainActivity extends Activity {
                 // a seconda del messaggio ricevuto da arduino:
                 switch (message) {
                     case C.PRESENCE_MSG:
-                        /*try {
-                            BluetoothConnectionManager.getInstance().sendMsg("true");
-                        } catch (MsgTooBigException e) {
-                            e.printStackTrace();
-                        }*/
+                        DialogFragment dialog = new AlarmDialogFragment();
+                        dialog.show(getFragmentManager().beginTransaction(), "dialog");
                         break;
                 }
             }
