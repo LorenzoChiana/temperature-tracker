@@ -25,7 +25,6 @@
     });
 
     $.getJSON('log.json', function(json) {
-            console.log(json.length);
       var container = $('#log-group');
       var type;
       var message;
@@ -38,8 +37,11 @@
           type = "list-group-item-success";
           message = "Accesso consentito";          
         }
+
+        var formattedTime = (json[i].time.split(" ")[1]);
+
         container.append('<li class="list-group-item ' + type + '">' +
-         '<p class="info-time">' + json[i].time + '</p>' + 
+         '<p class="info-time">' + formattedTime + '</p>' + 
          '<p class="info-message">' + message + '</p></li>');
       }
     });
