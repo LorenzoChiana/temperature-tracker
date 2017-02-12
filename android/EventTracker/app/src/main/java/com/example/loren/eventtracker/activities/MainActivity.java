@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         uiHandler = new MainActivityHandler();
+
     }
 
     @Override

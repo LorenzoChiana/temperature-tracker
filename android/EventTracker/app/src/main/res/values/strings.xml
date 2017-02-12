@@ -6,4 +6,5 @@
     <string name="positive">Sì</string>
     <string name="negative">No</string>
     <string name="ask">Notificare una situazione di allarme?</string>
+    <string name="notificationTitle">Situazione di allarme</string>
 </resources>

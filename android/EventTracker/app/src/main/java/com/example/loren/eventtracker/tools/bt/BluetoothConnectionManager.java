@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Message;
 import android.util.Log;
 
+import com.example.loren.eventtracker.tools.services.MessageService;
 import com.example.loren.eventtracker.utils.C;
 import com.example.loren.eventtracker.activities.MainActivity;
 
@@ -129,6 +130,7 @@ public class BluetoothConnectionManager extends Thread {
         Message m = new Message();
         m.obj = msg;
         MainActivity.getHandler().sendMessage(m);
+        MessageService.getHandler().sendMessage(m);
     }
 
     private void dispatchMsg(JSONObject msg){
