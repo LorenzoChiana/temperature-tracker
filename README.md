@@ -1,29 +1,20 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Project setup instructions
 
-### What is this repository for? ###
+## PSE2016-2017 Consegna 4 ##
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+### Project Setup ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+1. Install Apache on the Raspberry Pi
+2. Put and compile the java folder
+3. Put the website in the www of the server apache (with temperature and log files cleaned up)
+4. Run the program on the arduino with the pins in the config
+5. Connect via USB arduino and Raspberry
+6. Run the Main file with 2 arguments : the Arduino name ad DEV, and path of the website location (example /var/www/html)
 
-### Contribution guidelines ###
+### Credits ###
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Matteo Minardi
+Lorenzo Chiana
