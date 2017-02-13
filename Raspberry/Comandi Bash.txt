@@ -1,4 +1,4 @@
 sudo javac -cp bin:/usr/share/java/RXTXcomm.jar:/opt/pi4j/lib/'*':./lib/json-simple-1.1.1.jar -d bin  src/pse/**/*.java
 sudo javac -cp bin:/usr/share/java/RXTXcomm.jar:/opt/pi4j/lib/'*':./lib/json-simple-1.1.1.jar -d bin  src/pse/**/**/*.java
 
-sudo java -cp bin:/usr/share/java/RXTXcomm.jar:/opt/pi4j/lib/'*':./lib/json-simple-1.1.1.jar  pse.main.MainEventTracker /dev/ttyACM0
+sudo java -cp bin:/usr/share/java/RXTXcomm.jar:/opt/pi4j/lib/'*':./lib/json-simple-1.1.1.jar  pse.main.MainEventTracker /dev/ttyACM0 /var/www/html/
