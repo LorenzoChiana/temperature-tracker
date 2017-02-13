@@ -6,13 +6,15 @@ import pse.serial.SerialCommChannel;
 
 public class MainEventTracker {
 	
-	private static String fileSeparator = System.getProperty("file.separator");
-	public static String JSON_FOLDER = fileSeparator + "var" + fileSeparator + "www" 
-										+ fileSeparator + "html" + fileSeparator;
+	//private static String fileSeparator = System.getProperty("file.separator");
+	//public static String JSON_FOLDER = fileSeparator + "var" + fileSeparator + "www" 
+	//									+ fileSeparator + "html" + fileSeparator;
+	
+	public static String JSON_FOLDER;
 	
 	public static void main(String[] args) throws Exception {
 		
-		
+		JSON_FOLDER = args[1];
 		System.out.println("Json path : " + JSON_FOLDER);
 		
 		//Light greenLed1 = new pse.modulo_lab_4_2.devices.emu.Led(4);
