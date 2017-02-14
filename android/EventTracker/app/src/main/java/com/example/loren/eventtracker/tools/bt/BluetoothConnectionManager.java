@@ -5,6 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.loren.eventtracker.tools.services.MessageService;
+import com.example.loren.eventtracker.tools.services.SendMessage;
 import com.example.loren.eventtracker.utils.C;
 import com.example.loren.eventtracker.activities.MainActivity;
 

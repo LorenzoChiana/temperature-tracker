@@ -7,4 +7,5 @@
     <string name="negative">No</string>
     <string name="ask">Notificare una situazione di allarme?</string>
     <string name="notificationTitle">Situazione di allarme</string>
+    <string name="notificationBody">Clicca per saperne di più</string>
 </resources>

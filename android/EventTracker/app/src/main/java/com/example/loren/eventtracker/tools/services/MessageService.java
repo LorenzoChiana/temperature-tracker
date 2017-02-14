@@ -4,52 +4,39 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.view.View;
 
 import com.example.loren.eventtracker.R;
-import com.example.loren.eventtracker.activities.MainActivity;
+import com.example.loren.eventtracker.activities.AlarmActivity;
+import com.example.loren.eventtracker.tools.bt.BluetoothConnectionManager;
+import com.example.loren.eventtracker.tools.bt.MsgTooBigException;
 import com.example.loren.eventtracker.utils.C;
 
 import org.json.JSONObject;
 
-import static android.support.v4.app.NotificationCompat.*;
 
 public class MessageService extends IntentService {
-    private static MessageService.MessageServiceHandler handler;
 
+    private static MessageServiceHandler handler;
     public MessageService() {
         super("MessageService");
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onHandleIntent(Intent intent) {
-        handler = new MessageServiceHandler();
         Log.d("Service", "partito");
-        //getnotification();
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_stat_name)
-                        .setContentTitle(getString(R.string.notificationTitle))
-                        .setContentText(getString(R.string.ask))
-                        .addAction(R.drawable.ic_stat_name, getString(R.string.positive), null)
-                        .addAction(R.drawable.ic_stat_name, getString(R.string.negative), null);
-        int NOTIFICATION_ID = 12345;
-        Intent targetIntent = new Intent(this, resultpage.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-        NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nManager.notify(NOTIFICATION_ID, builder.build());
+        handler = new MessageServiceHandler();
+        try {
+            sendNotification();
+        } catch (MsgTooBigException e) {
+            e.printStackTrace();
+        }
+
         while(true){
         }
     }
@@ -59,7 +46,44 @@ public class MessageService extends IntentService {
         Log.d("Service", "distrutto");
     }
 
-    public static MessageService.MessageServiceHandler getHandler() {
+
+    public void sendNotification() throws MsgTooBigException {
+        /*NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_stat_name)
+                        .setContentTitle(getString(R.string.notificationTitle))
+                        .setContentText(getString(R.string.ask))
+                        .addAction(R.drawable.ic_stat_name, getString(R.string.positive), PendingIntent.getService(this, (int) System.currentTimeMillis(), new Intent(this, SendMessage.class), 0))
+                        .addAction(R.drawable.ic_stat_name, getString(R.string.negative), null);
+        final int NOTIFICATION_ID = 12345;*/
+        /*Intent targetIntent = new Intent(this, null);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);*/
+        //BluetoothConnectionManager.getInstance().sendMsg(C.POSITIVE_ALARM_RESPONSE)
+        /*NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nManager.notify(NOTIFICATION_ID, builder.build());*/
+        //Yes intent
+
+        final int NOTIFICATION_ID = 1234;
+        PendingIntent  tapPendingIntent = PendingIntent.getActivity(this , 0,
+                new  Intent(this , AlarmActivity.class),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification notification = new  NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_stat_name)
+                .setContentTitle("File  Downloaded")
+                .setContentText("The  requested  file  has  been  downloaded")
+                /*.addAction(R.drawable.ic_stat_name, getString(R.string.positive), PendingIntent.getService(this, (int) System.currentTimeMillis(), new Intent(this, SendMessage.class), 0))
+                .addAction(R.drawable.ic_stat_name, getString(R.string.negative), null)*/
+                .setAutoCancel(true)
+                .setContentIntent(tapPendingIntent)
+                .build();
+        NotificationManager  notificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID , notification);
+
+    }
+
+    public static MessageServiceHandler getHandler() {
         return handler;
     }
 
@@ -80,7 +104,6 @@ public class MessageService extends IntentService {
                 // a seconda del messaggio ricevuto da arduino:
                 switch (message) {
                     case C.PRESENCE_MSG:
-
                         break;
                 }
             }
@@ -89,27 +112,5 @@ public class MessageService extends IntentService {
                 //TODO
             }
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void getnotification(/*View view*/){
-        Log.d("Service", "dentro");
-        NotificationManager notificationmgr = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        Intent intent = new Intent(this, null);
-        PendingIntent pintent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
-
-        //   PendingIntent pintent = PendingIntent.getActivities(this,(int)System.currentTimeMillis(),intent, 0);
-
-
-        Notification notif = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.ic_stat_name)
-                .setContentTitle("Hello Android Hari")
-                .setContentText("Welcome to Notification Service")
-                .setContentIntent(pintent)
-                .build();
-
-
-        notificationmgr.notify(0,notif);
-
     }
 }
