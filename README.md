@@ -17,4 +17,5 @@ Project setup instructions
 ### Credits ###
 
 Matteo Minardi
+
 Lorenzo Chiana
