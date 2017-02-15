@@ -30,7 +30,6 @@ public class MainActivity extends Activity {
 
     private BluetoothAdapter btAdapter;
     private BluetoothDevice targetDevice;
-    //private static MainActivityHandler uiHandler;
     private boolean foreground = false;
 
 
@@ -39,7 +38,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
-        //uiHandler = new MainActivityHandler();
 
         MessageHandler.getHandler().setActivityContext(this);
 
@@ -48,7 +46,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         // Permessi per l'uso del bluetooth
         if (btAdapter != null) {
@@ -66,6 +63,7 @@ public class MainActivity extends Activity {
             showBluetoothUnavailableAlert();
         }
         foreground = true;
+        stopService();
     }
 
     @Override
@@ -134,37 +132,4 @@ public class MainActivity extends Activity {
 
         dialog.show();
     }
-
-   /* public static MainActivityHandler getHandler() {
-        return uiHandler;
-    }
-
-    public class MainActivityHandler extends Handler {
-
-        MainActivityHandler() {
-
-        }
-
-        public void handleMessage(Message msg) {
-
-            Object obj = msg.obj;
-
-            if (obj instanceof String) {
-                String message = obj.toString();
-                Log.d("RecivedMsg", message);
-
-                // a seconda del messaggio ricevuto da arduino:
-                switch (message) {
-                    case C.PRESENCE_MSG:
-                        DialogFragment dialog = new AlarmDialogFragment();
-                        dialog.show(getFragmentManager().beginTransaction(), "dialog");
-                        break;
-                }
-            }
-
-            if (obj instanceof JSONObject) {
-                //TODO
-            }
-        }
-    }*/
 }

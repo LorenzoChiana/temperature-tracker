@@ -5,9 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.loren.eventtracker.handler.MessageHandler;
-import com.example.loren.eventtracker.tools.services.MessageService;
 import com.example.loren.eventtracker.utils.C;
-import com.example.loren.eventtracker.activities.MainActivity;
 
 import org.json.JSONObject;
 
@@ -130,8 +128,6 @@ public class BluetoothConnectionManager extends Thread {
     private void dispatchMsg(String msg){
         Message m = new Message();
         m.obj = msg;
-        /*MainActivity.getHandler().sendMessage(m);
-        MessageService.getHandler().sendMessage(m);*/
         MessageHandler.getHandler().sendMessage(m);
     }
 

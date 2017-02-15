@@ -1,26 +1,14 @@
 package com.example.loren.eventtracker.handler;
 
-/**
- * Created by loren on 15/02/2017.
- */
-
-import android.app.DialogFragment;
 import android.os.Handler;
 import android.os.Message;
 
 import java.lang.ref.WeakReference;
-
-
-import android.os.Handler;
-import android.os.Message;
 
 import com.example.loren.eventtracker.activities.MainActivity;
 import com.example.loren.eventtracker.tools.bt.MsgTooBigException;
-import com.example.loren.eventtracker.tools.dialog.AlarmDialogFragment;
 import com.example.loren.eventtracker.tools.services.MessageService;
 import com.example.loren.eventtracker.utils.C;
-
-import java.lang.ref.WeakReference;
 
 public class MessageHandler extends Handler {
 
