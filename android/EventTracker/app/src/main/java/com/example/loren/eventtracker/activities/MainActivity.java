@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.loren.eventtracker.R;
+import com.example.loren.eventtracker.handler.MessageHandler;
 import com.example.loren.eventtracker.tools.bt.BluetoothConnectionTask;
 import com.example.loren.eventtracker.tools.bt.BluetoothUtils;
 import com.example.loren.eventtracker.tools.services.MessageService;
@@ -29,7 +30,8 @@ public class MainActivity extends Activity {
 
     private BluetoothAdapter btAdapter;
     private BluetoothDevice targetDevice;
-    private static MainActivityHandler uiHandler;
+    //private static MainActivityHandler uiHandler;
+    private boolean foreground = false;
 
 
     @Override
@@ -37,7 +39,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
-        uiHandler = new MainActivityHandler();
+        //uiHandler = new MainActivityHandler();
+
+        MessageHandler.getHandler().setActivityContext(this);
 
     }
 
@@ -61,18 +65,27 @@ public class MainActivity extends Activity {
         } else {
             showBluetoothUnavailableAlert();
         }
-
+        foreground = true;
     }
 
     @Override
     protected void onPause(){
         super.onPause();
+        foreground = false;
+        startService();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        foreground = false;
         startService();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        foreground = true;
         stopService();
     }
 
@@ -82,6 +95,14 @@ public class MainActivity extends Activity {
         stopService();
     }
 
+    public boolean isActivityOnForeground() {
+        return this.foreground;
+    }
+
+    public void startAlarmDialog() {
+        DialogFragment dialog = new AlarmDialogFragment();
+        dialog.show(getFragmentManager().beginTransaction(), "dialog");
+    }
 
     public void startService() {
         startService(new Intent(this, MessageService.class));
@@ -114,7 +135,7 @@ public class MainActivity extends Activity {
         dialog.show();
     }
 
-    public static MainActivityHandler getHandler() {
+   /* public static MainActivityHandler getHandler() {
         return uiHandler;
     }
 
@@ -145,5 +166,5 @@ public class MainActivity extends Activity {
                 //TODO
             }
         }
-    }
+    }*/
 }

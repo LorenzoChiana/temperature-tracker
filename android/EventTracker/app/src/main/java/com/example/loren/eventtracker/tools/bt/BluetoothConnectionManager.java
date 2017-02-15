@@ -4,8 +4,8 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Message;
 import android.util.Log;
 
+import com.example.loren.eventtracker.handler.MessageHandler;
 import com.example.loren.eventtracker.tools.services.MessageService;
-import com.example.loren.eventtracker.tools.services.SendMessage;
 import com.example.loren.eventtracker.utils.C;
 import com.example.loren.eventtracker.activities.MainActivity;
 
@@ -130,13 +130,14 @@ public class BluetoothConnectionManager extends Thread {
     private void dispatchMsg(String msg){
         Message m = new Message();
         m.obj = msg;
-        MainActivity.getHandler().sendMessage(m);
-        MessageService.getHandler().sendMessage(m);
+        /*MainActivity.getHandler().sendMessage(m);
+        MessageService.getHandler().sendMessage(m);*/
+        MessageHandler.getHandler().sendMessage(m);
     }
 
     private void dispatchMsg(JSONObject msg){
         Message m = new Message();
         m.obj = msg;
-        MainActivity.getHandler().sendMessage(m);
+        MessageHandler.getHandler().sendMessage(m);
     }
 }
