@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EventTracker</string>
+    <string name="btUnavailableAlertTitle">Warning</string>
+    <string name="btUnavailableAlertMessage">Bluetooth unavailable on this device</string>
+    <string name="btUnavailableAlertBtnText">Close APP</string>
+    <string name="positive">Sì</string>
+    <string name="negative">No</string>
+    <string name="ask">Notificare una situazione di allarme?</string>
+    <string name="notificationTitle">Situazione di allarme</string>
+    <string name="notificationBody">Clicca per saperne di più</string>
+</resources>
