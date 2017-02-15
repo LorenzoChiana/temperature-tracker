@@ -67,6 +67,21 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public void onActivityResult (int reqID , int res , Intent data ){
+
+        if (btAdapter != null) {
+            if (btAdapter.isEnabled()) {
+                targetDevice = BluetoothUtils.findPairedDevice(C.TARGET_BT_DEVICE_NAME, btAdapter);
+
+                if (targetDevice != null) {
+                    ((TextView) findViewById(R.id.btFoundFlagLabel)).setText("Target BT Device: Found " + targetDevice.getName());
+                    connectToTargetBtDevice();
+                }
+            }
+        }
+    }
+
+    @Override
     protected void onPause(){
         super.onPause();
         foreground = false;
