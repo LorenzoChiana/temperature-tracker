@@ -49,11 +49,11 @@ void setup() {
   sched.init(CLOCK);
   //Task che rileva la presenza di un allarme e lo segnala al servo e al dispositivo Bluetooth
   Task* detectPresenceTask = new DetectPresenceTask(env, pir, servo);
-  detectPresenceTask->init(3*CLOCK);
+  detectPresenceTask->init(CLOCK);
   sched.addTask(detectPresenceTask);
   //Task che rileva la temperatura e ogni periodo P la manda al dispositivo Seriale
   Task* temperatureTask = new TemperatureTask(env, thermostat);
-  temperatureTask->init(3*CLOCK);
+  temperatureTask->init(5*CLOCK);
   sched.addTask(temperatureTask);
   //Task che svolge la funzione di watchdog task e mandi segnali di controllo al dispositivo Seriale
   Task* controllerTask = new ControllerTask(env);
