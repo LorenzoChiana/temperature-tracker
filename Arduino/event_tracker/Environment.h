@@ -5,7 +5,7 @@
 #include "MsgServiceBluetooth.h"
 #include "MsgServiceSerial.h"
 
-
+//Classe che controlla semplicemente i canali comuni
 class Environment {
 
 	MsgServiceSerial* serialChannel;

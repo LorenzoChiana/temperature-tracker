@@ -11,6 +11,7 @@ void ControllerTask::init(int period){
 }
 
 void ControllerTask::tick(){
+  //Ogni secondo manda un segnale di controllo connessione al Bluetooth
   switch (state){
     case IDLE:
       currentTime = millis();

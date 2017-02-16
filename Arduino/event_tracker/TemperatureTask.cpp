@@ -14,6 +14,7 @@ void TemperatureTask::init(int period){
 }
 
 void TemperatureTask::tick(){
+  //Ogni P secondi prende la temperatura e la manda sul canale Seriale
   switch (state){
     case SETUP:
       currentTime = initialTime = millis();

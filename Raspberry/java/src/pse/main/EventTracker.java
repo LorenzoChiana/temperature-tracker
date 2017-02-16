@@ -12,18 +12,20 @@ import pse.devices.ObservableButton;
 import pse.devices.ObservableTimer;
 import pse.devices.Tick;
 
+//Classe che incapsula il comportamento dell'event tracker in base all'evento e allo stato in cui si trova
 public class EventTracker extends BasicEventLoopController {
-	
+	//Istanzio i due controller JSON che gestiscono l'aggiunta nel path indicato
 	JSONController jsonTemperature = new JSONController(MainEventTracker.JSON_FOLDER, MsgType.TEMPERATURE);
 	JSONController jsonAlarm = new JSONController(MainEventTracker.JSON_FOLDER, MsgType.ALARM);
 	
 	private Light greenLed1;
 	private Light greenLed2;
 	private Light alarmLed;
-
+	//Variabile che conferma il funzionamento della comunicazione
 	private boolean ackRecived = false;
-
+	//Timer per l'evento di Tick
 	private ObservableTimer timer;
+	//Bottone per l'evento di pressione 
 	private ObservableButton button;
 
 	private enum State {CONNECTED, NOT_CONNECTED};
@@ -40,6 +42,7 @@ public class EventTracker extends BasicEventLoopController {
 
 		this.timer = new ObservableTimer();		
 		timer.addObserver(this);
+		//Ogni cinque secondi verifica che gli sia arrivato almeno un ack altrimenti considera la connessione non funzionante
 		timer.start(5000);
 		
 		currentState = State.NOT_CONNECTED;
@@ -49,20 +52,20 @@ public class EventTracker extends BasicEventLoopController {
 		switch (currentState){
 		case CONNECTED:
 			try {
+				//Messaggio di temperatura che prende un valore
 				if (ev instanceof TemperatureMsg){
 					TemperatureMsg tempMsg = (TemperatureMsg) ev;
 					float currentTemp = tempMsg.getValue();
 					jsonTemperature.append(currentTemp);
 					jsonTemperature.write();
-					System.out.println("Message arrived : temperature ( "+ currentTemp +" )");
-					
+					System.out.println("Message arrived : temperature ( "+ currentTemp +" )");					
 					blinkLed(greenLed2);				
 				} else if (ev instanceof ConnectionMsg){
 					ackRecived = true;
 					//System.out.println("Message recived : ack");
 				} else if (ev instanceof PresenceMsg){
-					PresenceMsg presenceMsg = (PresenceMsg) ev;
-					
+					//Messaggio di presenza rilevata che può essere vera o falsa se è un allarme o no
+					PresenceMsg presenceMsg = (PresenceMsg) ev;				
 					jsonAlarm.append(presenceMsg.isAlarm());
 					jsonAlarm.write();
 					
@@ -96,6 +99,7 @@ public class EventTracker extends BasicEventLoopController {
 			}
 			break;
 		case NOT_CONNECTED:
+			//Fase di connessione
 			try {
 				if (ev instanceof ConnectionMsg){
 					//System.out.println("Message recived: working and connected.");

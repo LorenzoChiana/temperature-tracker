@@ -41,6 +41,7 @@ void DetectPresenceTask::tick(){
         sendPresence();
         state = NO_ONE;
       }
+      //Se non vi è risposta entro 10 secondi manda l'allarme comunque
     } else if (currentTime - initialTime > 10000){
       sendAlarm();
       actuateServo(&toggle);

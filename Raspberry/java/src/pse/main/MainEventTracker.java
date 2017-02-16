@@ -13,7 +13,8 @@ public class MainEventTracker {
 	public static String JSON_FOLDER;
 	
 	public static void main(String[] args) throws Exception {
-		
+
+		//Ottiene il path dei JSON da modificare da parametro
 		JSON_FOLDER = args[1];
 		System.out.println("Json path : " + JSON_FOLDER);
 		
@@ -29,6 +30,7 @@ public class MainEventTracker {
 		//ObservableButton button = new pse.modulo_lab_4_2.devices.emu.ObservableButton(17);
 		ObservableButton button = new pse.devices.pi4j.Button(7);
 		
+		//Crea i due oggetti fondamentali per l'esecuzione del ciclo in ricezione sulla Serial
 		EventTracker tracker = new EventTracker(greenLed1, greenLed2, alarmLed, button);
 		SerialReciver rec = new SerialReciver(tracker, serialConnection);
 		

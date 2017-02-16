@@ -1,14 +1,14 @@
   var graph;
 
   $(document).ready(function () {
-
+      //Creazione grafico di visualizzazione delle temperature
       graph = Morris.Line({
           element: 'grafico-temperatura',
           xkey: ['time'],
           ykeys: ['value'],
           labels: ['Temperatura']
       });
-
+      //Update ogni 200 millisecondi dei dati
       updateData();
       setInterval(function () {
           updateData();
@@ -17,7 +17,7 @@
   });
 
   function updateData() {
-
+      //Ottenimento JSON temperature con visualizzazione delle ultime 10 graficamente
       $.getJSON('temperature.json', function (json) {
           var data = [];
           
@@ -27,12 +27,12 @@
           for (var i = left ; i < json.length ; i++ ){
               data.push(json[i]);
           }
-          
+          //Setting dei dati
           graph.setData(data);
           lastTemp = json[json.length - 1].value;
           $('#title-row h1').text("Temperatura attuale: " + lastTemp);
       });
-
+      //Ottenimento JSON degli accessi e creazione del panel che li contiene
       $.getJSON('log.json', function (json) {
           var container = $('#log-group');
           var type;

@@ -19,8 +19,6 @@
  * Consegna quattro
  */
 
-#define debug
-
 Scheduler sched(5);
 Environment* env;
 
@@ -29,9 +27,9 @@ void setup() {
   Serial.begin(9600);
   /* Inizializzazione componenti dei task */
 
-  //PIR
+  //Pir
   PIRSensor* pir = new PIRSensor(PIR_PIN);
-  //SERVO
+  //Servo
   ServoTimer2* servo = new ServoTimer2();
   servo->attach(SERVO_PIN);
   //Sensore di temperatura
@@ -49,15 +47,15 @@ void setup() {
   env->init(serialChannel, bluetoothChannel);
 
   sched.init(CLOCK);
-
+  //Task che rileva la presenza di un allarme e lo segnala al servo e al dispositivo Bluetooth
   Task* detectPresenceTask = new DetectPresenceTask(env, pir, servo);
   detectPresenceTask->init(3*CLOCK);
   sched.addTask(detectPresenceTask);
-  
+  //Task che rileva la temperatura e ogni periodo P la manda al dispositivo Seriale
   Task* temperatureTask = new TemperatureTask(env, thermostat);
   temperatureTask->init(3*CLOCK);
   sched.addTask(temperatureTask);
-
+  //Task che svolge la funzione di watchdog task e mandi segnali di controllo al dispositivo Seriale
   Task* controllerTask = new ControllerTask(env);
   controllerTask->init(3*CLOCK);
   sched.addTask(controllerTask);

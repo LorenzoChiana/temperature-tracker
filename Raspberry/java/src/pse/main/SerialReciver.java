@@ -3,8 +3,8 @@ package pse.main;
 import pse.common.BasicController;
 import pse.serial.SerialCommChannel;
 
+//Classe che riceve i messaggi dalla seriale su un Thread e li fa processare all'Event Tracker	
 public class SerialReciver extends BasicController {
-	
 	private enum MsgValues {		
         CONNECTION("connection"), PRESENCE("presence detected"), ALARM("alarm detected");		
 		private String value;		
