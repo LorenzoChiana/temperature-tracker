@@ -15,6 +15,7 @@ public class MessageHandler extends Handler {
     private WeakReference<MainActivity> activityContext = null;
     private WeakReference<MessageService> serviceContext = null;
 
+    //istanza dell'handler
     private static MessageHandler instance = new MessageHandler();
 
     public static MessageHandler getHandler() {
@@ -37,14 +38,11 @@ public class MessageHandler extends Handler {
             String message = obj.toString();
 
             if (message.equals(C.PRESENCE_MSG)) {
+                //a seconda del contesto apro una nuova activity o lancio una notifica
                 if (activityContext.get().isActivityOnForeground()) {
                     activityContext.get().startAlarmDialog();
                 } else {
-                    try {
-                        serviceContext.get().showNotification();
-                    } catch (MsgTooBigException e) {
-                        e.printStackTrace();
-                    }
+                    serviceContext.get().showNotification();
                 }
             }
         }

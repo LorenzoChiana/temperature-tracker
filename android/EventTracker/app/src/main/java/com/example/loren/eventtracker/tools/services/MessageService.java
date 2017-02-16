@@ -12,19 +12,16 @@ import android.support.v4.app.NotificationCompat;
 import com.example.loren.eventtracker.R;
 import com.example.loren.eventtracker.activities.AlarmActivity;
 import com.example.loren.eventtracker.handler.MessageHandler;
-import com.example.loren.eventtracker.tools.bt.MsgTooBigException;
 
 
 public class MessageService extends Service {
-
-    //private static MessageServiceHandler handler;
     public MessageService() {
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        //cambio del contesto dell'handler
         MessageHandler.getHandler().setServiceContext(this);
     }
 
@@ -44,8 +41,8 @@ public class MessageService extends Service {
         return null;
     }
 
-
-    public void showNotification() throws MsgTooBigException {
+    //generazione della notifica
+    public void showNotification() {
 
         final int NOTIFICATION_ID = 1234;
         PendingIntent  tapPendingIntent = PendingIntent.getActivity(this , 0,

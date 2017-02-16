@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.loren.eventtracker.R;
 import com.example.loren.eventtracker.handler.MessageHandler;
+import com.example.loren.eventtracker.tools.bt.BluetoothConnectionManager;
 import com.example.loren.eventtracker.tools.bt.BluetoothConnectionTask;
 import com.example.loren.eventtracker.tools.bt.BluetoothUtils;
 import com.example.loren.eventtracker.tools.services.MessageService;
@@ -30,6 +31,7 @@ public class MainActivity extends Activity {
 
     private BluetoothAdapter btAdapter;
     private BluetoothDevice targetDevice;
+    //variabile che indica se l'app è in foreground o no
     private boolean foreground = false;
 
 
@@ -38,7 +40,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
-
+        //cambio del contesto dell'handler
         MessageHandler.getHandler().setActivityContext(this);
 
     }
@@ -63,6 +65,7 @@ public class MainActivity extends Activity {
             showBluetoothUnavailableAlert();
         }
         foreground = true;
+        //distruzione di qualche aventuale service
         stopService();
     }
 
@@ -81,6 +84,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    //Se l'app viene messa in background (onPause od onStop) viene avviato il service
     @Override
     protected void onPause(){
         super.onPause();
@@ -95,6 +99,7 @@ public class MainActivity extends Activity {
         startService();
     }
 
+    //Quando l'app viene rimessa in foreground il service termina
     @Override
     protected void onResume() {
         super.onResume();
@@ -102,25 +107,31 @@ public class MainActivity extends Activity {
         stopService();
     }
 
+    //Alla chiusura dell'app il service termina
     @Override
     protected void onDestroy() {
         super.onDestroy();
         stopService();
+        BluetoothConnectionManager.getInstance().cancel();
+        BluetoothConnectionManager.nullIstance();
     }
 
     public boolean isActivityOnForeground() {
         return this.foreground;
     }
 
+    //creazione dialog per richiesta
     public void startAlarmDialog() {
         DialogFragment dialog = new AlarmDialogFragment();
         dialog.show(getFragmentManager().beginTransaction(), "dialog");
     }
 
+    //avvio service
     public void startService() {
         startService(new Intent(this, MessageService.class));
     }
 
+    //distruzione service
     public void stopService() {
         stopService(new Intent(this, MessageService.class));
     }

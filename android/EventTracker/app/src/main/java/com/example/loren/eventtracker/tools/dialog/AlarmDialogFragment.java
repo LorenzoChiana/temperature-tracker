@@ -15,7 +15,6 @@ import com.example.loren.eventtracker.utils.C;
 public class AlarmDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.ask)
                 .setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
@@ -38,7 +37,6 @@ public class AlarmDialogFragment extends DialogFragment {
                         }
                     }
                 });
-        // Create the AlertDialog object and return it
         return builder.create();
     }
 }

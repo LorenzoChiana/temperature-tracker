@@ -11,6 +11,8 @@ import com.example.loren.eventtracker.tools.bt.BluetoothConnectionManager;
 import com.example.loren.eventtracker.tools.bt.MsgTooBigException;
 import com.example.loren.eventtracker.utils.C;
 
+//activity creata dalla pressione della notifica
+//contiene due bottoni con la scelta della risposta della domanda della notifica
 public class AlarmActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class AlarmActivity extends Activity {
             public void onClick(View v) {
                 try {
                     Log.d("Message", "sent yes");
+                    //invio di messaggio ad arduino tramite bluetooth
                     BluetoothConnectionManager.getInstance().sendMsg(C.POSITIVE_ALARM_RESPONSE);
                 } catch (MsgTooBigException e) {
                     e.printStackTrace();
@@ -42,6 +45,7 @@ public class AlarmActivity extends Activity {
             public void onClick(View v) {
                 try {
                     Log.d("Message", "sent no");
+                    //invio di messaggio ad arduino tramite bluetooth
                     BluetoothConnectionManager.getInstance().sendMsg(C.NEGATIVE_ALARM_RESPONSE);
                 } catch (MsgTooBigException e) {
                     e.printStackTrace();

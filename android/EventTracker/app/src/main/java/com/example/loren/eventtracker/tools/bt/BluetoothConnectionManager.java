@@ -136,4 +136,8 @@ public class BluetoothConnectionManager extends Thread {
         m.obj = msg;
         MessageHandler.getHandler().sendMessage(m);
     }
+
+    public static void nullIstance() {
+        instance = null;
+    }
 }
